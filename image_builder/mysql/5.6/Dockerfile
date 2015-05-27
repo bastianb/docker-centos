@@ -9,24 +9,29 @@ FROM bastianb/centos6.5
 # File Author / Maintainer
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
-# Install MySQL
-RUN yum update
-RUN yum install -y mysql-server
+# Update system
+RUN yum -y update && yum install -y wget
+
+# Instal MySQL
+RUN wget -P /tmp/ http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm && \
+	rpm -Uvh /tmp/mysql-community-release-el6-5.noarch.rpm && \
+	yum -y  install mysql-community-server
+
+# Solves `/etc/init.d/mysqld: line 16: /etc/sysconfig/network: No such file or directory`
+# On start up
+RUN echo "NETWORKING=yes" >/etc/sysconfig/network
 
 # Remove pre-installed database
 RUN rm -rf /var/lib/mysql/*
 
-# Remove syslog configuration
-RUN rm /etc/mysql/conf.d/mysqld_safe_syslog.cnf
-
 # Add MySQL configuration
-ADD my.cnf /etc/mysql/conf.d/my.cnf
-ADD mysqld_charset.cnf /etc/mysql/conf.d/mysqld_charset.cnf
+ADD my.cnf /etc/my.cnf
 
 # Add MySQL scripts
-ADD import_sql.sh /import_sql.sh
-ADD run.sh /run.sh
-RUN chmod 755 /*.sh
+RUN mkdir -p /tmp/mysql_tools
+ADD import_sql.sh /tmp/mysql_tools/import_sql.sh
+ADD run.sh /tmp/mysql_tools/run.sh
+RUN chmod 755 /tmp/mysql_tools/*.sh
 
 # Exposed ENV
 ENV MYSQL_USER admin
@@ -40,7 +45,7 @@ ENV REPLICATION_USER replica
 ENV REPLICATION_PASS replica
 
 # Add VOLUMEs to allow backup of config and databases
-VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+VOLUME  ["/data/mysql"]
 
 EXPOSE 3306
-CMD ["/run.sh"]
+CMD ["/tmp/mysql_tools/run.sh"]

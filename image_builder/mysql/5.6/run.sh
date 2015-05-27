@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VOLUME_HOME="/var/lib/mysql"
-CONF_FILE="/etc/mysql/conf.d/my.cnf"
-LOG="/var/log/mysql/error.log"
+VOLUME_HOME="/data/mysql"
+CONF_FILE="/etc/my.cnf"
+LOG="/data/mysql/log/mysqld.error.log"
 
 # Set permission of config file
 chmod 644 ${CONF_FILE}
@@ -13,7 +13,7 @@ StartMySQL ()
     /usr/bin/mysqld_safe > /dev/null 2>&1 &
 
     # Time out in 1 minute
-    LOOP_LIMIT=13
+    LOOP_LIMIT=5
     for (( i=0 ; ; i++ )); do
         if [ ${i} -eq ${LOOP_LIMIT} ]; then
             echo "Time out. Error log is shown as below:"
@@ -77,7 +77,7 @@ ImportSql()
 	mysqladmin -uroot shutdown
 }
 
-# Main
+# mysqladmin
 if [ ${REPLICATION_MASTER} == "**False**" ]; then
     unset REPLICATION_MASTER
 fi
