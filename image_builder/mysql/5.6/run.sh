@@ -1,12 +1,11 @@
 #!/bin/bash
 
-VOLUME_HOME="/data/mysql"
+VOLUME_HOME="/var/lib/mysql"
 CONF_FILE="/etc/my.cnf"
-LOG="/data/mysql/log/mysqld.error.log"
+LOG="/var/lib/mysql/run_log.log"
 
 # Set permission of config file
 chmod 644 ${CONF_FILE}
-chmod 644 /etc/mysql/conf.d/mysqld_charset.cnf
 
 StartMySQL ()
 {
@@ -87,11 +86,11 @@ if [ ${REPLICATION_SLAVE} == "**False**" ]; then
 fi
 
 # Initialize empty data volume and create MySQL user
-if [[ ! -d $VOLUME_HOME/mysql ]]; then
+if [[ ! -d $VOLUME_HOME ]]; then
     echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
     echo "=> Installing MySQL ..."
     if [ ! -f /usr/share/mysql/my-default.cnf ] ; then
-        cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf
+        cp /etc/my.cnf /usr/share/mysql/my-default.cnf
     fi
     mysql_install_db > /dev/null 2>&1
     echo "=> Done!"

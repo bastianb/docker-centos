@@ -10,7 +10,8 @@ FROM bastianb/centos6.5
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
 # Update system
-RUN yum -y update && yum install -y wget
+#RUN yum -y update
+RUN yum install -y wget
 
 # Instal MySQL
 RUN wget -P /tmp/ http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm && \
@@ -33,6 +34,7 @@ ADD import_sql.sh /tmp/mysql_tools/import_sql.sh
 ADD run.sh /tmp/mysql_tools/run.sh
 RUN chmod 755 /tmp/mysql_tools/*.sh
 
+
 # Exposed ENV
 ENV MYSQL_USER admin
 ENV MYSQL_PASS **Random**
@@ -45,7 +47,7 @@ ENV REPLICATION_USER replica
 ENV REPLICATION_PASS replica
 
 # Add VOLUMEs to allow backup of config and databases
-VOLUME  ["/data/mysql"]
+VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 3306
 CMD ["/tmp/mysql_tools/run.sh"]
