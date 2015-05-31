@@ -1,16 +1,16 @@
 ############################################################
 # Dockerfile to build MySQL container images
-# Based on bastianb/centos6
+# Based on bastianb/centos6.5
 ############################################################
 
-# Set the base image to Ubuntu
+# Set the base image to Centos
 FROM bastianb/centos6.5
 
 # File Author / Maintainer
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
 # Install dependencies
-RUN yum install -y wget pwgen
+RUN yum install -y epel-release wget pwgen
 
 # Instal MySQL
 RUN wget -P /tmp/ http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm && \

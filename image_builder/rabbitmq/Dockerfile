@@ -3,7 +3,7 @@
 # Based on bastianb/centos6.5
 ############################################################
 
-# Set the base image to Ubuntu
+# Set the base image to Centos
 FROM bastianb/centos6.5
 
 # File Author / Maintainer
