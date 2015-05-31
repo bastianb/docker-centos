@@ -2,7 +2,9 @@
 
 VOLUME_HOME="/var/lib/mysql"
 CONF_FILE="/etc/my.cnf"
-LOG="/var/lib/mysql/run_log.log"
+LOG="/var/log/mysql/error.log"
+mkdir -p /var/log/mysql/
+touch $LOG
 
 # Set permission of config file
 chmod 644 ${CONF_FILE}
@@ -86,13 +88,19 @@ if [ ${REPLICATION_SLAVE} == "**False**" ]; then
 fi
 
 # Initialize empty data volume and create MySQL user
-if [[ ! -d $VOLUME_HOME ]]; then
+if [[ ! -d $VOLUME_HOME/mysql ]]; then
     echo "=> An empty or uninitialized MySQL volume is detected in $VOLUME_HOME"
     echo "=> Installing MySQL ..."
     if [ ! -f /usr/share/mysql/my-default.cnf ] ; then
         cp /etc/my.cnf /usr/share/mysql/my-default.cnf
     fi
     mysql_install_db > /dev/null 2>&1
+    
+    # !important to avoird permission error,
+    # Set privileges to mysql folder
+    echo "=> Setting file permissions"
+    chown -R mysql:root /var/lib/mysql
+    
     echo "=> Done!"
     echo "=> Creating admin user ..."
     CreateMySQLUser
