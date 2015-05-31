@@ -1,9 +1,23 @@
-FROM ubuntu:trusty
-MAINTAINER Fernando Mayo <fernando@tutum.co>
+############################################################
+# Dockerfile to build RabbitMQ container images
+# Based on bastianb/centos6.5
+############################################################
+
+# Set the base image to Ubuntu
+FROM bastianb/centos6.5
+
+# File Author / Maintainer
+MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
+
+# Install dependencies
+RUN yum -y install epel-release wget logrotate && \
+	wget http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm && \
+	rpm -Uvh erlang-solutions-1.0-1.noarch.rpm	&& \
+	yum -y install erlang pwgen
 
 # Install RabbitMQ
-RUN rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc && \
-    yum install rabbitmq-server-3.5.3-1.noarch.rpm && \
+RUN wget https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.3/rabbitmq-server-3.5.3-1.noarch.rpm && \
+	rpm -Uvh rabbitmq-server-3.5.3-1.noarch.rpm	&& \
 	rabbitmq-plugins enable rabbitmq_management
     
 RUN echo "ERLANGCOOKIE" > /var/lib/rabbitmq/.erlang.cookie
