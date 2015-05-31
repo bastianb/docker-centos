@@ -5,7 +5,7 @@ Base docker image to run a RabbitMQ server
 
 ##Usage
 
-To create the image `bastianb/rabbitmq`, execute the following command on the tutum-rabbitmq folder:
+To create the image `bastianb/rabbitmq`, execute the following command on the rabbitmq folder:
 
 	sudo docker build -t bastianb/rabbitmq .
 
@@ -75,20 +75,6 @@ docker run -d \
  -e CLUSTER_WITH=node1.host.io \
  bastianb/rabbitmq
 ```
-
-##RabbitMQ cluster stack file with Tutum
-
-```
-rabbitmq-master:
-  image: bastianb/rabbitmq
-rabbitmq-slave:
-  image: bastianb/rabbitmq
-  environment:
-    - CLUSTER_WITH=rabbitmq-master-1
-  links:
-    - rabbitmq-master
-```
-
 
 ##Persistence
 
