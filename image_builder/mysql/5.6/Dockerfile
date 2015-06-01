@@ -9,6 +9,8 @@ FROM bastianb/centos6.5
 # File Author / Maintainer
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
+RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm 
+
 # Install dependencies
 RUN yum install -y epel-release wget pwgen
 
