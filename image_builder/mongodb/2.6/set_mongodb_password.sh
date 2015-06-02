@@ -8,6 +8,7 @@ fi
 mongod --smallfiles --nojournal &
 
 PASS=${MONGODB_PASS:-$(pwgen -s 12 1)}
+USER=${MONGODB_USER:-"admin"}
 _word=$( [ ${MONGODB_PASS} ] && echo "preset" || echo "random" )
 
 RET=1
@@ -19,7 +20,7 @@ while [[ RET -ne 0 ]]; do
 done
 
 echo "=> Creating an admin user with a ${_word} password in MongoDB"
-mongo admin --eval "db.createUser({user: 'admin', pwd: '$PASS', roles:[{role:'root',db:'admin'}]});"
+mongo admin --eval "db.createUser({user: '$USER', pwd: '$PASS', roles:[{role:'root',db:'admin'}]});"
 mongo admin --eval "db.shutdownServer();"
 
 echo "=> Done!"
