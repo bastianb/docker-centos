@@ -34,15 +34,15 @@ In this case, 5elsT6KtjrqV is the password set. You can then connect to MongoDB:
      mongo admin -u admin -p 5elsT6KtjrqV
 Done!
 
-## Setting a specific password for the admin account
+## Setting a specific user and password for the administrator account
 
-If you want to use a preset password instead of a randomly generated one, you can set the environment variable MONGODB_PASS to your specific password when running the container:
+If you want to use a preset password or user instead of a randomly generated one and default 'admin' username, you can set the environment variables MONGODB_USER and MONGODB_PASS to your specific username and password when running the container:
 
-    docker run -d -p 27017:27017 -p 28017:28017 -e MONGODB_PASS="mypass" bastianb/mongodb2.X
+    docker run -d -p 27017:27017 -p 28017:28017 -e MONGODB_USER="myuser" -e MONGODB_PASS="mypass" bastianb/mongodb2.X
 You can now test your new admin password:
 
-    mongo admin -u admin -p mypass
-    curl --user admin:mypass --digest http://localhost:28017/
+    mongo admin -u myuser -p mypass
+    curl --user myuser:mypass --digest http://localhost:28017/
 Run MongoDB without password
 
 If you want to run MongoDB without password you can set the environment variable AUTH to specific if you want password or not when running the container:
