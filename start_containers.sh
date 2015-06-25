@@ -60,7 +60,7 @@ if [ "$persistence" == "**True**" ]; then
   if [ -d "$DATA_VOL" ]; then
       # Control will enter here if $DATA_VOL exists.
       echo "=> $DATA_VOL already exists"
-      echo "Are you shure that you want to continue?"
+      echo "Are you sure that you want to continue?"
       select yn in "Yes" "No"; do
         case $yn in
             Yes ) break;;
