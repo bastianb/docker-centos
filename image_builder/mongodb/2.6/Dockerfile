@@ -10,7 +10,7 @@ FROM bastianb/centos6.5
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
 # Install dependencies
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 RUN yum install -y pwgen
 
 RUN echo -e "[mongodb-org-2.6]\nname=MongoDB 2.6 Repository\nbaseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb-org-2.6.repo
