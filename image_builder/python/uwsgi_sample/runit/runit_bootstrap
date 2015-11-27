@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export > /etc/envvars
+exec /sbin/runsvdir-start
