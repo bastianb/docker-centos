@@ -19,10 +19,8 @@ RUN pip3.4 install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
 
-COPY runit/runit_bootstrap /sbin/runit_bootstrap
-RUN chmod 655 /sbin/runit_bootstrap
-
 # Redirect runit logs to docker log collector
 RUN ln -sf /dev/stdout /etc/sv/myapp/log/current
 
-CMD ["/sbin/runit_bootstrap"]
+COPY runit/runservices /sbin/runservices
+CMD ["/sbin/runservices"]
