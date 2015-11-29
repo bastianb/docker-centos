@@ -1,0 +1,14 @@
+myapp-nginx:
+    build: ./nginx
+    # Static files
+    # volumes:
+    #     - .:/usr/src/app
+    links:
+        - myapp
+    ports:
+        - "80:80"
+
+myapp:
+    build: .
+    expose:
+        - "8080"
