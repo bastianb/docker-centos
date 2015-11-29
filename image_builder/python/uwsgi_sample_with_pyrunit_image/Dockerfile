@@ -1,8 +1,7 @@
-FROM bastianb/python:3.4.3
+FROM bastianb/python:3.4.3_with-run-it
 
-# Prepare runit and pcre for uwsgi
-RUN curl -s https://packagecloud.io/install/repositories/imeyer/runit/script.rpm.sh | bash
-RUN yum install -y runit pcre pcre-devel
+# pcre for uwsgi
+RUN yum install -y pcre pcre-devel
 
 # Copy runit conf
 COPY ./etc/sv/myapp /etc/sv/myapp

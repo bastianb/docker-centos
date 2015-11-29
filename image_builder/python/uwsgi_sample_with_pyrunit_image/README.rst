@@ -2,7 +2,7 @@ Tiny containerized uWSGI python application
 
 Description
 -----------
-Minimal setup of a Python app using uWSGI and runit based on centos:6.7.
+Minimal setup of a Python app using uWSGI and runit based on bastianb/python:3.4.3_with-run-it.
 Runit is used as an entry point for the container.
 This way application is shutdown gracefully when SIGTERM is sent
 from a `docker stop` command thanks to runsvinit entry point.
