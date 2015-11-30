@@ -3,7 +3,11 @@ FROM bastianb/centos:6.7_with-run-it
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
 # Get essentials
-RUN yum install -y zlib-devel bzip2-devel openssl-devel wget tar
+# Get essentials
+RUN yum -y install gcc rsyslog \
+    wget tar zlib-devel \
+    bzip2-devel openssl-devel \
+    file
 
 # Install python 3.5.0 and pip
 WORKDIR /tmp/
@@ -25,6 +29,6 @@ ENV LC_ALL=en_US.utf8
 ENV LANG=en_US.utf8
 
 # Cleanup
-RUN rm -rf /tmp/Python-3.5.0* get-pip.py
+RUN rm -rf /tmp/Python-3.5.0* /tmp/get-pip.py
 
 CMD ["python3.5"]

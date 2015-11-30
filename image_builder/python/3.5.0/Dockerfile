@@ -28,6 +28,6 @@ ENV LC_ALL=en_US.utf8
 ENV LANG=en_US.utf8
 
 # Cleanup
-RUN rm -rf /tmp/Python-3.5.0* get-pip.py
+RUN rm -rf /tmp/Python-3.5.0* /tmp/get-pip.py
 
 CMD ["python3.5"]
