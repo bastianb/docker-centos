@@ -1,12 +1,9 @@
-FROM bastianb/centos6.5
+FROM bastianb/centos:6.7_with-run-it
 
 MAINTAINER Bretagne Bastian <bastian.b@webinterpret.com>
 
 # Get essentials
-RUN yum -y install gcc rsyslog \
-    wget tar zlib-devel \
-    bzip2-devel openssl-devel \
-    file
+RUN yum install -y zlib-devel bzip2-devel openssl-devel wget tar
 
 # Install python 3.5.0 and pip
 WORKDIR /tmp/
