@@ -1,0 +1,13 @@
+myapp-falcon-nginx:
+    build: ./nginx
+    links:
+        - myapp-falcon
+    ports:
+        - "80:80"
+
+myapp-falcon:
+    build: .
+    expose:
+        - "8080"
+    volumes:
+        - .:/usr/src/myapp

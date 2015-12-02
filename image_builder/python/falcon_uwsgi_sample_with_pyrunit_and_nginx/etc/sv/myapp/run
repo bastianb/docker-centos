@@ -1,0 +1,13 @@
+#!/bin/bash
+exec 2>&1
+cd /usr/src/myapp
+exec chpst -u root uwsgi --http 8080 \
+    --wsgi-file /usr/src/myapp/app/webapi/wsgi.py \
+    --pyargv=/usr/src/myapp/app/confs/app.ini \
+    --vacuum \
+    --die-on-term \
+    --processes 4 \
+    --threads 2 \
+    --master \
+    --py-autoreload 1
+
